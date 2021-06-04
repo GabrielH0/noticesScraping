@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Table
@@ -99,6 +100,11 @@ public class Notice {
 
     public LocalDateTime getDateTime() {
         return dateTime;
+    }
+
+    public String getDateTimeFormatted() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyy hh:mm");
+        return formatter.format(dateTime);
     }
 
     public void setDateTime(LocalDateTime dateTime) {
