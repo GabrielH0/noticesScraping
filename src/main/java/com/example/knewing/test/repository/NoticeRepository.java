@@ -13,4 +13,6 @@ public interface NoticeRepository extends CrudRepository<Notice, Long> {
     Optional<Notice> findById(Long id);
 
     List<Notice> findByUrl(String url);
+
+    List<Notice> findByContentLike(String keyword);
 }

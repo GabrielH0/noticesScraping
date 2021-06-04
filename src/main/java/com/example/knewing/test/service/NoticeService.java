@@ -27,12 +27,12 @@ public class NoticeService {
         return noticeRepository.findAll();
     }
 
-    public Optional<Notice> findById(Long id) {
-        return noticeRepository.findById(id);
-    }
-
     public List<Notice> findByUrl(String url) {
         return  noticeRepository.findByUrl(url);
+    }
+
+    public List<Notice> findByContentContainsKeyword (String keyword) {
+        return noticeRepository.findByContentLike("%" + keyword + "%");
     }
 
     public Notice save(Notice notice) {

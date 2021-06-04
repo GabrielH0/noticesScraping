@@ -1,13 +1,12 @@
 package com.example.knewing.test.controller;
 
-import com.example.knewing.test.model.Notice;
 import com.example.knewing.test.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
@@ -43,4 +42,13 @@ public class NoticeController {
         }
         return "redirect:/notices";
     }
+
+    @PostMapping("/notices/filter")
+    public ModelAndView filterNotice(@RequestParam("keyword") String keyword) {
+        ModelAndView mav = new ModelAndView("notices");
+        mav.addObject("keyword", keyword);
+        mav.addObject("notices", noticeService.findByContentContainsKeyword(keyword));
+        return mav;
+    }
+
 }

@@ -41,12 +41,14 @@
 
     <div class="list-group container mt-5 ">
         <div id="filters" class="mb-4">
-            <div class="mb-3 row">
-                <div class="col-sm-10">
-                    <input class="form-control" placeholder="Filtrar noticias">
+            <form action="/notices/filter" method="POST">
+                <div class="mb-3 row">
+                    <div class="col-sm-10">
+                        <input th:value="${keyword}" name="keyword" type="text" class="form-control" placeholder="Filtrar noticias">
+                    </div>
+                    <button type="submit" class="btn btn-primary col-sm-2 col-form-label">Filtrar</button>
                 </div>
-                <button type="submit" class="btn btn-primary col-sm-2 col-form-label">Filtrar</button>
-            </div>
+            </form>
         </div>
 
         <div th:each="notice : ${notices}">
