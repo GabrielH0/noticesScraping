@@ -32,7 +32,7 @@ public class NoticeController {
     }
 
     @PostMapping("/notices")
-    public String postNotice(@ModelAttribute("url") String url) {
+    public String postNotice(@RequestParam("url") String url) {
         try {
             noticeService.convertUrlToNotice(url);
         } catch (IOException e) {

@@ -36,6 +36,9 @@
     <nav class="navbar navbar-light bg-light mb-5">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1">Knewing news</span>
+            <div class="d-grid gap-2 col-3 float-end">
+                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#newNoticeModal">+ Nova Noticia</button>
+            </div>
         </div>
     </nav>
 
@@ -85,6 +88,26 @@
                     <div id="content" escape-content="false">
                         content
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="newNoticeModal" tabindex="-1" aria-labelledby="newNoticeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <strong><h5 class="modal-title" id="newNoticeModalLabel" style="text-align: center">
+                        Adicionar nova noticia
+                    </h5></strong>
+                </div>
+                <div class="modal-body">
+                    <form action="/notices" method="post">
+                        <input class="form-control mb-4" name="url" th:value="${url}" />
+                        <div class="row-fluid text-center">
+                            <button type="submit" class="btn btn-primary" placeholder="Insira a URL na nova noticia">Adicionar noticia</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
