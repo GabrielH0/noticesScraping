@@ -1,16 +1,9 @@
 package com.example.knewing.test.model;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -27,6 +20,11 @@ public class NoticeTest {
         try {
             this.notice.fromUrl(URL);
             assertThat(notice.getContent()).isNotNull();
+            assertThat(notice.getAuthor()).isNotNull();
+            assertThat(notice.getDateTime()).isNotNull();
+            assertThat(notice.getSubTitle()).isNotNull();
+            assertThat(notice.getTitle()).isNotNull();
+            assertThat(notice.getUrl()).isNotNull();
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }

@@ -1,10 +1,10 @@
 package com.example.knewing.test.controller;
 
 import com.example.knewing.test.service.NoticeService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,12 +20,6 @@ public class NoticeController {
 
     @GetMapping("/notices")
     public ModelAndView getAllNotices() {
-        try {
-            noticeService.convertUrlToNotice("https://www.infomoney.com.br/mercados/itausa-lucra-123-mais-no-1o-tri-a-r-24-bi-prejuizo-da-marisa-cai-50-e-mais-balancos-petrobras-petrorio-e-outros-destaques/");
-            noticeService.convertUrlToNotice("https://www.infomoney.com.br/mercados/adrs-brasileiros-caem-em-ny-com-correcao-enquanto-investidores-digerem-dado-forte-de-emprego-nos-eua/");
-        } catch (Exception e) {
-
-        }
         ModelAndView mav = new ModelAndView("notices");
         mav.addObject("notices", noticeService.findAll());
         return mav;
@@ -35,9 +29,9 @@ public class NoticeController {
     public String postNotice(@RequestParam("url") String url) {
         try {
             noticeService.convertUrlToNotice(url);
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
-        } catch (ParseException e) {
+        } catch (ConstraintViolationException e) {
             e.printStackTrace();
         }
         return "redirect:/notices";

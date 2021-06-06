@@ -1,14 +1,13 @@
 package com.example.knewing.test.service;
 
-import com.example.knewing.test.repository.NoticeRepository;
 import com.example.knewing.test.model.Notice;
+import com.example.knewing.test.repository.NoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class NoticeService {
