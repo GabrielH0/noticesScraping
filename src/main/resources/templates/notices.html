@@ -36,7 +36,7 @@
     </script>
 </head>
 <body>
-    <nav class="navbar navbar-light bg-light mb-5">
+    <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1">Knewing news</span>
             <div class="d-grid gap-2 col-3 float-end">
@@ -44,7 +44,10 @@
             </div>
         </div>
     </nav>
-
+    <div  th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <p th:text="${error}" />
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     <div class="list-group container mt-5 ">
         <div id="filters" class="mb-4">
             <form action="/notices/filter" method="POST">

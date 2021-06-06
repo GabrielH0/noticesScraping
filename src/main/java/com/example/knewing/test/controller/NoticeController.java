@@ -4,13 +4,11 @@ import com.example.knewing.test.service.NoticeService;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.io.IOException;
-import java.text.ParseException;
 
 @Controller
 public class NoticeController {
@@ -26,15 +24,16 @@ public class NoticeController {
     }
 
     @PostMapping("/notices")
-    public String postNotice(@RequestParam("url") String url) {
+    public ModelAndView postNotice(@RequestParam("url") String url) {
+        ModelAndView noticesMav = new ModelAndView("notices");
         try {
             noticeService.convertUrlToNotice(url);
-        } catch (IOException | ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (ConstraintViolationException e) {
-            e.printStackTrace();
+            noticesMav.addObject("error", "Erro inesperado ao processar a URL informada");
         }
-        return "redirect:/notices";
+        noticesMav.addObject("notices", noticeService.findAll());
+        return noticesMav;
     }
 
     @PostMapping("/notices/filter")
@@ -45,4 +44,11 @@ public class NoticeController {
         return mav;
     }
 
+    @ExceptionHandler({ConstraintViolationException.class})
+    public ModelAndView getUrlAlreadyRegistred() {
+        ModelAndView mav = new ModelAndView("notices");
+        mav.addObject("error", "A URL informada já foi cadastrada");
+        mav.addObject("notices", noticeService.findAll());
+        return mav;
+    }
 }
