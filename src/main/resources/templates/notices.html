@@ -31,7 +31,7 @@
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1">Knewing news</span>
             <div class="d-grid gap-2 col-3 float-end">
-                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#newNoticeModal">+ Nova Noticia</button>
+                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#newNoticeModal">+ Nova Notícia</button>
             </div>
         </div>
     </nav>
@@ -109,14 +109,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <strong><h5 class="modal-title" id="newNoticeModalLabel" style="text-align: center">
-                        Adicionar nova noticia
+                        Adicionar nova notícia
                     </h5></strong>
                 </div>
                 <div class="modal-body">
                     <form action="/notices" method="post">
                         <input type="url" class="form-control mb-4" name="url" placeholder="Insira a URL da nova noticia" th:value="${url}" required/>
                         <div class="row-fluid text-center">
-                            <button type="submit" class="btn btn-primary" >Adicionar noticia</button>
+                            <button type="submit" class="btn btn-primary" >Adicionar notícia</button>
                         </div>
                     </form>
                 </div>
