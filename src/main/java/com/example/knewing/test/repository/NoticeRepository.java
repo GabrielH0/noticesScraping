@@ -1,18 +1,20 @@
 package com.example.knewing.test.repository;
 
 import com.example.knewing.test.model.Notice;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface NoticeRepository extends CrudRepository<Notice, Long> {
-
-    List<Notice> findAll();
+@Repository
+public interface NoticeRepository extends JpaRepository<Notice, Long> {
 
     Optional<Notice> findById(Long id);
 
     List<Notice> findByUrl(String url);
 
-    List<Notice> findByContentLike(String keyword);
+    Page<Notice> findByContentLike(String keyword, Pageable pageable);
 }

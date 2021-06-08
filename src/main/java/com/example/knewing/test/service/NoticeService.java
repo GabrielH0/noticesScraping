@@ -3,6 +3,8 @@ package com.example.knewing.test.service;
 import com.example.knewing.test.model.Notice;
 import com.example.knewing.test.repository.NoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -22,16 +24,16 @@ public class NoticeService {
         return notice;
     }
 
-    public List<Notice> findAll() {
-        return noticeRepository.findAll();
+    public Page<Notice> findAll(Pageable pageable) {
+        return noticeRepository.findAll(pageable);
     }
 
     public List<Notice> findByUrl(String url) {
         return  noticeRepository.findByUrl(url);
     }
 
-    public List<Notice> findByContentContainsKeyword (String keyword) {
-        return noticeRepository.findByContentLike("%" + keyword + "%");
+    public Page<Notice> findByContentContainsKeyword (String keyword, Pageable pageable) {
+        return noticeRepository.findByContentLike("%" + keyword + "%", pageable);
     }
 
     public Notice save(Notice notice) {

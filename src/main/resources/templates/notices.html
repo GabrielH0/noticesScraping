@@ -78,6 +78,22 @@
             </a>
         </div>
     </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${notices.number eq 0} ? 'disabled'">
+                <a class="page-link" th:href="@{/notices?page={id}(id=${notices.number lt 2 ? 1 : notices.number})}"
+                   tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+            <li class="page-item" th:classappend="${i eq notices.number + 1} ? 'active'"
+            th:each="i:${#numbers.sequence(1, notices.totalPages, 1)}">
+                <a class="page-link" th:href="@{/notices?page={id}(id=${i})}" th:text="${i}"
+                   th:title="${'Page' + i}" data-toogle="tooltip"></a>
+            </li>
+            <li class="page-item" th:classappend="${notices.number + 1 eq notices.totalPages} ? 'disabled'">
+                <a class="page-link" th:href="@{/notices?page={id}(id=${notices.number + 2})}">Next</a>
+            </li>
+        </ul>
+    </nav>
 
     <div class="modal fade" id="noticeModal" tabindex="-1" aria-labelledby="noticeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-xl">
