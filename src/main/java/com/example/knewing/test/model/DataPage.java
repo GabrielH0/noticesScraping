@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class DataPage {
     private static int PAGE = 0;
-    private static int SIZE = 5;
+    private static int SIZE = 6;
     private HttpServletRequest request;
 
     public DataPage(HttpServletRequest request) {

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NoticeService {
@@ -30,6 +31,10 @@ public class NoticeService {
 
     public List<Notice> findByUrl(String url) {
         return  noticeRepository.findByUrl(url);
+    }
+
+    public Optional<Notice> findById(Long id) {
+        return noticeRepository.findById(id);
     }
 
     public Page<Notice> findByContentContainsKeyword (String keyword, Pageable pageable) {

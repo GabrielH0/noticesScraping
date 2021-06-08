@@ -48,7 +48,6 @@ public class Notice {
         Elements date = document.getElementsByClass("entry-date");
         Elements content = document.getElementsByClass("article-content");
         LocalDateTime dateNotice = formatNoticeData(date.text());
-
         this.setTitle(document.title());
         this.setAuthor(author.first().text());
         this.setSubTitle(subTitle.first().text());
@@ -62,6 +61,7 @@ public class Notice {
         document.getElementsByClass("jp-relatedposts-headline").remove();
         document.getElementsByClass("article-content").first().getElementsByTag("p").last().remove();
         document.getElementsByTag("figure").remove();
+        document.getElementsByClass("infomoney-newsletter").remove();
     }
 
     public LocalDateTime formatNoticeData(String date) throws ParseException {

@@ -1,9 +1,11 @@
 package com.example.knewing.test.controller;
 
 import com.example.knewing.test.model.DataPage;
+import com.example.knewing.test.model.Notice;
 import com.example.knewing.test.service.NoticeService;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,7 +26,18 @@ public class NoticeController {
     public ModelAndView getAllNotices() {
         dataPage.initPageAndSize();
         ModelAndView mav = new ModelAndView("notices");
+        Page<Notice> notices = noticeService.findAll(getPageRequest(dataPage));
+        mav.addObject("notices", notices);
+        mav.addObject("readingNotice", notices.stream().findFirst().get());
+        return mav;
+    }
+
+    @GetMapping("/notice")
+    public ModelAndView getNoticeById(@RequestParam("id") Long id) {
+        dataPage.initPageAndSize();
+        ModelAndView mav = new ModelAndView("notices");
         mav.addObject("notices", noticeService.findAll(getPageRequest(dataPage)));
+        mav.addObject("readingNotice", noticeService.findById(id).get());
         return mav;
     }
 
@@ -39,7 +52,9 @@ public class NoticeController {
             e.printStackTrace();
             noticesMav.addObject("error", "Erro inesperado ao processar a URL informada");
         }
-        noticesMav.addObject("notices", noticeService.findAll(getPageRequest(dataPage)));
+        Page<Notice> notices = noticeService.findAll(getPageRequest(dataPage));
+        noticesMav.addObject("notices", notices);
+        noticesMav.addObject("readingNotice", notices.stream().findFirst().get());
         return noticesMav;
     }
 
@@ -48,8 +63,11 @@ public class NoticeController {
         dataPage.initPageAndSize();
 
         ModelAndView mav = new ModelAndView("notices");
+        Page<Notice> noticesByKeyword = noticeService.findByContentContainsKeyword(keyword, getPageRequest(dataPage));
         mav.addObject("keyword", keyword);
-        mav.addObject("notices", noticeService.findByContentContainsKeyword(keyword, getPageRequest(dataPage)));
+        mav.addObject("notices", noticesByKeyword);
+        mav.addObject("readingNotice", noticesByKeyword.stream().findFirst().orElse(null));
+
         return mav;
     }
 

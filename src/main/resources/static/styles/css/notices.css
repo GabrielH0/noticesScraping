@@ -1,0 +1,25 @@
+body {
+    height: 85vh;
+    margin: 0;
+}
+
+.row {
+    height: 100%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#listNotices {
+    height: 100%;
+    overflow: auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+.list-group-item.active {
+    background-color: #6c757d;;
+    border-color: black;
+    color: black;
+}
