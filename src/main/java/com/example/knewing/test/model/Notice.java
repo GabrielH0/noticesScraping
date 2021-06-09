@@ -2,7 +2,6 @@ package com.example.knewing.test.model;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 
 import javax.persistence.*;
@@ -14,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Objects;
 
 @Table
 @Entity
@@ -104,7 +104,7 @@ public class Notice {
 
     public String getDateTimeFormatted() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyy hh:mm");
-        return formatter.format(dateTime);
+        return !Objects.isNull(dateTime) ? formatter.format(dateTime) : "";
     }
 
     public void setDateTime(LocalDateTime dateTime) {
@@ -112,7 +112,7 @@ public class Notice {
     }
 
     public String getContent() {
-        return Jsoup.parse(content).html();
+        return !Objects.isNull(content) ? Jsoup.parse(content).html() : "";
     }
 
     public void setContent(String content) {

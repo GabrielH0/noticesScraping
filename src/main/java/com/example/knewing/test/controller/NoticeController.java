@@ -28,7 +28,7 @@ public class NoticeController {
         ModelAndView mav = new ModelAndView("notices");
         Page<Notice> notices = noticeService.findAll(getPageRequest(dataPage));
         mav.addObject("notices", notices);
-        mav.addObject("readingNotice", notices.stream().findFirst().get());
+        mav.addObject("readingNotice", notices.stream().findFirst().orElse(new Notice()));
         return mav;
     }
 
@@ -37,7 +37,7 @@ public class NoticeController {
         dataPage.initPageAndSize();
         ModelAndView mav = new ModelAndView("notices");
         mav.addObject("notices", noticeService.findAll(getPageRequest(dataPage)));
-        mav.addObject("readingNotice", noticeService.findById(id).get());
+        mav.addObject("readingNotice", noticeService.findById(id).orElse(new Notice()));
         return mav;
     }
 
@@ -54,7 +54,7 @@ public class NoticeController {
         }
         Page<Notice> notices = noticeService.findAll(getPageRequest(dataPage));
         noticesMav.addObject("notices", notices);
-        noticesMav.addObject("readingNotice", notices.stream().findFirst().get());
+        noticesMav.addObject("readingNotice", notices.stream().findFirst().orElse(new Notice()));
         return noticesMav;
     }
 
@@ -66,7 +66,7 @@ public class NoticeController {
         Page<Notice> noticesByKeyword = noticeService.findByContentContainsKeyword(keyword, getPageRequest(dataPage));
         mav.addObject("keyword", keyword);
         mav.addObject("notices", noticesByKeyword);
-        mav.addObject("readingNotice", noticesByKeyword.stream().findFirst().orElse(null));
+        mav.addObject("readingNotice", noticesByKeyword.stream().findFirst().orElse(new Notice()));
 
         return mav;
     }

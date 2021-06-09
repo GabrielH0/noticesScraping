@@ -50,7 +50,7 @@
                 </div>
             </form>
         </div>
-        <div th:if="${notices}" class="list-group col" id="listNotices">
+        <div th:if="${not notices.isEmpty()}" class="list-group col" id="listNotices">
             <div th:each="notice : ${notices}">
                 <a th:href="@{/notice?id={id}(id=${notice.id})}">
                     <div class="list-group-item list-group-item-action rounded"
@@ -65,20 +65,20 @@
                     </div>
                 </a>
             </div>
-            <nav aria-label="Page navigation example">
+            <nav aria-label="Page navigation" class="mt-1">
                 <ul class="pagination justify-content-center">
                     <li class="page-item" th:classappend="${notices.number eq 0} ? 'disabled'">
                         <a class="page-link"
                            th:href="@{/notices?page={id}(id=${notices.number lt 2 ? 1 : notices.number})}"
-                           tabindex="-1" aria-disabled="true">Previous</a>
+                           tabindex="-1" aria-disabled="true">Anterior</a>
                     </li>
                     <li class="page-item" th:classappend="${i eq notices.number + 1} ? 'active'"
                         th:each="i:${#numbers.sequence(1, notices.totalPages, 1)}">
                         <a class="page-link" th:href="@{/notices?page={id}(id=${i})}" th:text="${i}"
                            th:title="${'Page' + i}" data-toogle="tooltip"></a>
                     </li>
-                    <li class="page-item" th:classappend="${notices.number + 1 eq notices.totalPages} ? 'disabled'">
-                        <a class="page-link" th:href="@{/notices?page={id}(id=${notices.number + 2})}">Next</a>
+                    <li class="page-item" th:classappend="${(notices.number + 1 eq notices.totalPages) or notices.isEmpty()} ? 'disabled'">
+                        <a class="page-link" th:href="@{/notices?page={id}(id=${notices.number + 2})}">Próxima</a>
                     </li>
                 </ul>
             </nav>
