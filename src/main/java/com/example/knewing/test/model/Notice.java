@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Table
@@ -45,9 +46,9 @@ public class Notice {
         cleanAndFormat(document);
         Elements subTitle = document.getElementsByClass("article-lead");
         Elements author = document.getElementsByClass("author-name");
-        Elements date = document.getElementsByClass("entry-date");
+        String date = document.getElementsByClass("entry-date").attr("datetime");
         Elements content = document.getElementsByClass("article-content");
-        LocalDateTime dateNotice = formatNoticeData(date.text());
+        LocalDateTime dateNotice = formatNoticeData(date);
         this.setTitle(document.title());
         this.setAuthor(author.first().text());
         this.setSubTitle(subTitle.first().text());
@@ -65,7 +66,7 @@ public class Notice {
     }
 
     public LocalDateTime formatNoticeData(String date) throws ParseException {
-        DateFormat df = new SimpleDateFormat("dd MMM yyyy HH'h'mm");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         Date startDate = df.parse(date);
         return LocalDateTime.ofInstant(startDate.toInstant(), ZoneId.systemDefault());
     }
